@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit{
     caffeineSource : any =  "\n\n\n" +
         " 14 15  0  0  0  0  0  0  0  0999 V2000\n" +
         "    0.5089    7.8316    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n" +
@@ -44,9 +44,12 @@ export class AppComponent {
         "M  END\n";
         
     constructor() {
-    MarvinJSUtil.getEditor("#sketch").then(function(sketcherInstance) {
-        sketcherInstance.importStructure("mol", caffeineSource) 
-}); 
-
-}   
+    }
+  
+    ngAfterViewInit(){
+      var self= this;
+      MarvinJSUtil.getEditor("#sketch").then(function(sketcherInstance) {
+        sketcherInstance.importStructure("mol", self.caffeineSource);
+      });
+    }
 }
